@@ -1,5 +1,12 @@
-import pickle
+"""
+
+Task: Create a dictionarry where you can store, modify and remove words and explanation
+You should also make the program able to save using pickle
+
+"""
+
 import colored
+import pickle
 import sys
 import os
 

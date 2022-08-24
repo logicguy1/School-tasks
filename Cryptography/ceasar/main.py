@@ -50,7 +50,3 @@ if __name__ == "__main__":
 
     with open("chiffer.txt", "w") as file:
         file.write(chiffer)
-
-    inp = input("String: ")
-    print("en", crypt.encrypt(inp))
-    print("de", crypt.decrypt(inp))

@@ -100,6 +100,17 @@ class Dictionarry:
 
         return False
 
+    def modify_word(self) -> bool:
+        """ Ændre på et ord """
+
+        self.show_words(self.words, lineNumbers = True)
+
+        indx = input(f"\n{E}Hvilken ord vil du redigere? (index)\n{R}>>{F} ")
+        key = list(self.words.keys())[int(indx) - 1]
+
+        
+        
+
 
 def menu():
     try:

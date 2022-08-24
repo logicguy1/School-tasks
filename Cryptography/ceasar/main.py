@@ -4,12 +4,13 @@ class Key:
     """ Create a key from small passphrase """
     def __init__(self, passwd:str = "") -> None:
         self.raw = list("ABCDEFGHIJKLMNOPRSTUVWXYZÆØÅ")
+        self.key = list("ABCDEFGHIJKLMNOPRSTUVWXYZÆØÅ")
         
         random.seed(passwd) # Set the seed with random so we always get the same key from the passphrase
-        self.key = self.raw
 
         for i in range(5):
             random.shuffle(self.key)
+
 
 class Ceasar:
     """ Handle the cryptographic part of algarythem """
@@ -18,23 +19,23 @@ class Ceasar:
         self.myKey = key
         self.shift = shift
 
-    def swap_letter(self, letter: str, shift: int) -> str:
+    def swap_letter(self, letter: str, arr1: list, arr2: list) -> str:
         """ Swaps a letter with another """
         try:
-            indx = self.myKey.key.index(letter.upper())
+            indx = arr1.index(letter.upper())
         except ValueError:
             return letter 
 
-        return self.myKey.key[(indx + shift) % len(self.myKey.key)]
+        return arr2[indx]
 
     def encrypt(self, phrase:str) -> str:
         """ Encrypt a message using the key """
-        txt = "".join([self.swap_letter(i, self.shift) for i in phrase])
+        txt = "".join([self.swap_letter(i, self.myKey.key, self.myKey.raw) for i in phrase])
         return txt
 
     def decrypt(self, phrase:str) -> str:
         """ Decrypt a message using the key """
-        txt = "".join([self.swap_letter(i, self.shift * -1) for i in phrase])
+        txt = "".join([self.swap_letter(i, self.myKey.raw, self.myKey.key) for i in phrase])
         return txt
 
 
@@ -44,9 +45,12 @@ if __name__ == "__main__":
     print(myKey.key)
     crypt = Ceasar(myKey, 8)
 
-    # with open("chiffer.txt", "r") as file:
-    #     print(crypt.decrypt(file.read()))
+    with open("chiffer.txt", "r") as file:
+        chiffer = crypt.encrypt(file.read())
+
+    with open("chiffer.txt", "w") as file:
+        file.write(chiffer)
 
     inp = input("String: ")
-    print(crypt.encrypt(inp))
-    print(crypt.decrypt(inp))
+    print("en", crypt.encrypt(inp))
+    print("de", crypt.decrypt(inp))

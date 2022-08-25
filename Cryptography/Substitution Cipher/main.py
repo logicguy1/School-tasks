@@ -1,3 +1,10 @@
+"""
+
+Task: Create a program that can de and encrypt a substetution cipher
+
+"""
+
+
 import random
 
 class Key:
@@ -14,10 +21,8 @@ class Key:
 
 class Ceasar:
     """ Handle the cryptographic part of algarythem """
-    def __init__(self, key: Key, shift: int = 1) -> None:
-        """ key: KeyObject, shift: amount to shift (int) """
+    def __init__(self, key: Key) -> None:
         self.myKey = key
-        self.shift = shift
 
     def swap_letter(self, letter: str, arr1: list, arr2: list) -> str:
         """ Swaps a letter with another """
@@ -41,9 +46,11 @@ class Ceasar:
 
 
 if __name__ == "__main__":
+    # Create the key object
     myKey = Key("passwdei23")
     print(myKey.key)
-    crypt = Ceasar(myKey, 8)
+    # Create the ecnryption obejct, it takes a key and 
+    crypt = Ceasar(myKey)
 
     with open("chiffer.txt", "r") as file:
         chiffer = crypt.encrypt(file.read())

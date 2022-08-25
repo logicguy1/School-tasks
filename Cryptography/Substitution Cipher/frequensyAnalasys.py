@@ -5,7 +5,11 @@ TASK: Create a frequency analasys program for breaking substetution chiffers
 """
 
 import math
+import colored
+F = colored.fg("#ffffff")
+B = colored.fg("#999999")
 
+# Frequency table from sproget.dk
 frequency = {
         "A": 6.01, "B": 1.41, "C": 0.29, "D": 7.24, "E": 16.70, "F": 2.27, 
         "G": 4.56, "H": 1.88, "I": 5.55, "J": 1.11, "K": 3.07, "L": 4.85, 
@@ -14,12 +18,19 @@ frequency = {
         "Y": 0.72, "Z": 0.02
     }
 
+override = {
+        "J": "I",
+        "U": "E"
+        }
 
 def create_barchart(data, myKey, alph):
+    # Sort the dictionarry for their procentages
     display = {k: v for k, v in sorted(data.items(), key=lambda item: item[1], reverse = True)}
+
     out = ""
-    maxItem = list(display.items())[0][1] # Get the higest procentage
     height = 10 
+
+    maxItem = list(display.items())[0][1] # Get the higest procentage
     multiplier = height / maxItem # What we should multiply with to make the higest be 100%
 
     for i in range(height, 0, -1):
@@ -38,15 +49,24 @@ def create_barchart(data, myKey, alph):
     print(out)
 
 def decrypt(key, alph, data):
-    data = data[:60]
-    print("Data input preview: ", data, "\nData output preview: ", end = "", flush = True)
+    # Display a preview of the encrypted text and decrypted text
+    data = data[:600]
+    #print("Data input preview: ", data, "\nData output preview: ", end = "", flush = True)
+    
+    raw = ""
+    decrypted = ""
     for i in data:
         try:
-            print(alph[key.index(i)], end = "", flush = True)
-        except ValueError:
-            print(i, end="", flush=True)
+            #print(F+i, override.get(i))
+            raw += F + override.get(i) if override.get(i) is not None else B + i 
+            decrypted += F + override[i.upper()]
+        except KeyError:
+            try:
+                decrypted += B+alph[key.index(i)]
+            except ValueError:
+                decrypted += B+i 
 
-    print()
+    print(raw+"\n\n\n"+decrypted)
 
 def analyse(data):
     analasys = {}
@@ -81,8 +101,8 @@ def analyse(data):
         diffs = [(ltr, proc, abs(proc - val)) for ltr, proc in procLetter.items() if ltr not in taken]
         if len(diffs) != 0:
             item = min(diffs, key=lambda x: x[2]) # Get the letter with the biggest acuracy
-        else:
-            item = ("╳", 0, 0)
+        else: # If none is found
+            item = ("x", 0, 0)
 
         taken.append(item[0])
         myKey.append(item[0])
@@ -94,6 +114,7 @@ def analyse(data):
     
     decrypt(myKey, alph, data)
     create_barchart(procLetter, myKey, alph)
+    #create_barchart(frequency, alph, alph)
 
 
 if __name__ == "__main__":

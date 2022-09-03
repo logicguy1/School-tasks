@@ -5,7 +5,6 @@ import os
 
 import colored
 
-
 # Color variables
 F = colored.fg("#ffffff") # White
 B = colored.fg("#999999") # Gray
@@ -15,7 +14,7 @@ R = colored.fg("#cc2023") # Red
 alph = list("ABCDEFGHIJKLMNOPRSTUVWXYZÆØÅ")
 
 # Function to clear the screen, cross platform
-clear = lambda : os.system('cls' if os.name == 'nt' else 'clear')
+clear = lambda : [print("\n"*40), os.system('cls' if os.name == 'nt' else 'clear')]
 
 
 def ask(prompt: str, newLine: bool = True, parseInt: bool = False) -> Union[str,int]:
@@ -32,6 +31,18 @@ def ask(prompt: str, newLine: bool = True, parseInt: bool = False) -> Union[str,
     print(F, end="\n" if newLine else "", flush = True)
     return resp
 
+
+def highlight(text: str, ltr: str) -> str:
+    """ Highligh a specific charecter in a text """
+    out = ""
+
+    for i in text:
+        if i == ltr:
+            out += F + i
+        else:
+            out += B + i
+
+    return out
 
 def safe_exit() -> None:
     """ Exit the program """

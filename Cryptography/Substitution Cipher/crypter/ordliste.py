@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 import config as conf
 
@@ -21,11 +21,26 @@ class Ordbog:
         for word in words:
             # Should we append the word to the list? Will be True if no missmatch is found
             success = True
+            ltrIndx = 0
+            letters: Dict[str,int] = {} # Taken letters in the word
 
             # Loop over each letter and check if it matches the case
             for ltr, indx in zip(word, range(len(pattern))):
-                if ltr != pattern[indx] and pattern[indx] != "_":
-                    success = False
+                if ltr == pattern[indx] or pattern[indx] == "_":
+                    continue
+
+                if letters.get(ltr) is not None:
+                    if pattern[indx] == str(letters.get(ltr)):
+                        continue
+                    else:
+                        success = False
+                else:
+                    letters[ltr] = ltrIndx
+                    if pattern[indx] == str(letters.get(ltr)):
+                        pass
+                    else:
+                        success = False
+                    ltrIndx += 1
 
             if success:
                 found.append(word)
@@ -60,10 +75,6 @@ class Ordbog:
 
         print(out, end = "\n\n")
 
-        #choice: int = conf.ask("What item fits best?", parseInt = True)
-
-        #return found[choice]
-        
 
 if __name__ == "__main__":
     ordbog = Ordbog()

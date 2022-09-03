@@ -1,3 +1,11 @@
+"""
+
+Program to clean datasets
+
+"""
+
+import random
+
 alph = list("ABCDEFGHIJKLMNOPRSTUVWXYZ")
 
 with open("ordliste.txt", "r") as file:
@@ -14,5 +22,6 @@ with open("ordliste.txt", "r") as file:
             data.append(i)
 
 with open("ordliste.txt", "w") as file:
+    random.choice(data)
     file.write("\n".join(data))
     print(i)

@@ -4,8 +4,8 @@ Task: Create a program that can de and encrypt a substetution cipher
 
 """
 
-
 import random
+
 
 class Key:
     """ Create a key from small passphrase """
@@ -13,7 +13,8 @@ class Key:
         self.raw = list("ABCDEFGHIJKLMNOPRSTUVWXYZÆØÅ")
         self.key = list("ABCDEFGHIJKLMNOPRSTUVWXYZÆØÅ")
         
-        random.seed(passwd) # Set the seed with random so we always get the same key from the passphrase
+        # Set the seed with random so we always get the same key from the passphrase
+        random.seed(passwd) 
 
         for i in range(5):
             random.shuffle(self.key)
@@ -44,16 +45,20 @@ class Ceasar:
         return txt
 
 
-
 if __name__ == "__main__":
     # Create the key object
     myKey = Key("passwdei23")
     print(myKey.key)
-    # Create the ecnryption obejct, it takes a key and 
+
+    # Manually set a key
+    # myKey.key = ["A", "B", "C" ... ]
+
+    # Create the ecnryption obejct, it takes a key 
     crypt = Ceasar(myKey)
 
     with open("chiffer.txt", "r") as file:
         chiffer = crypt.encrypt(file.read())
+        # chiffer = crypt.decrypt(file.read())
 
     with open("chiffer.txt", "w") as file:
         file.write(chiffer)

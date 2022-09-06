@@ -21,10 +21,10 @@ This program has the following reuirements
 
 ## The main program
 
-To run the main decryption tool, you want your local path to be in `./Cryptography/Substitution Cipher` and you run the following command
+To run the main decryption tool, you want your local path to be in `./Cryptography/Substitution Cipher/crypter` and you run the following command
 
 ```bash
-python -m crypter
+python __main__.py
 ```
 
 This will take you to the main menu where you can search the crypted text and you can use the varius features to work yourself towards the key

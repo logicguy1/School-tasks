@@ -58,7 +58,7 @@ def progressbar(it): # Python3.3+
 
         remaning = round(((time.time()-start) / count) * (len(it)-count), 2)
         amount = count % 20
-        print(f"\r[ {'.'*amount}{' '*(20-amount)} ] {count} / {len(it)}, {remaning} s   ", end="", flush=True)
+        print(f"\r{B}[{F} {'.'*amount}{' '*(20-amount)} {B}]{R} {count} {B}/{R} {len(it)}{B},{R} {remaning} s{F}   ", end="", flush=True)
         count += 1
 
     print("\n", flush=True)

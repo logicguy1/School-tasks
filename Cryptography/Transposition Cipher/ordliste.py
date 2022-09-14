@@ -1,14 +1,12 @@
-from typing import List, Dict
+from typing import List, Dict, Set
 
 import config as conf
 
+import csv
 
 class Ordbog:
     def __init__(self) -> None:
-        with open("ordliste.txt", "r") as file:
-            data = [i.strip() for i in file.readlines()]
-
-        self.words = data
+        self.words: Set[str] = {} 
 
     def search(self, pattern: str) -> List[str]:
         """ Search for a word, (__llo) """
@@ -46,6 +44,12 @@ class Ordbog:
                 found.append(word)
 
         return found
+
+
+    def quick_search(self, word: str) -> bool:
+        """ Search for exact matches in the wordlist """
+        return word.upper() in self.words
+
                 
     def ask_user(self) -> None:
         """ Lookup a word in the database """
@@ -74,6 +78,22 @@ class Ordbog:
         out = out[:-2] # Remove trailing ", "
 
         print(out, end = "\n\n")
+
+
+    def load_file(self, path:str) -> None:
+        """ Load a file with eacher word split by a newline """
+        with open(path, "r") as file:
+            data = [i.strip() for i in file.readlines()]
+
+        self.words = set(data)
+
+    def load_csv(self, path:str) -> None:
+        with open(path, "r") as file:
+            reader = csv.reader(file, delimiter=";")
+            data = [i[0].strip().upper() for i in reader]
+
+        self.words = set(data)
+
 
 
 if __name__ == "__main__":

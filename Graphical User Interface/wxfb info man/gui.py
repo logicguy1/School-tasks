@@ -72,8 +72,8 @@ class MyDialog2 ( wx.Dialog ):
 
 		bSizer6.Add( self.m_staticText3, 0, wx.ALL, 5 )
 
-		self.m   = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer6.Add( self.m  , 0, wx.ALL, 5 )
+		self.m_textFname = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.m_textFname, 0, wx.ALL, 5 )
 
 		self.m_staticText4 = wx.StaticText( self, wx.ID_ANY, u"Efternavn", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4.Wrap( -1 )

@@ -5,10 +5,10 @@ Table of contents
 
 - Basic Python  
   File Read: We read a file :o  
-  Alkohol: Are you allowed to drink?  
-  DictTest: Here we played around with dictionarries  
-  Fibonacchi: We did the fibonacchi sequence, both using a loop and recursive  
-  Ordbog: We created a dictionarry to keep track of words  
+  Alkohol: Are you allowed to drink?
+  DictTest: Here we played around with dictionaries  
+  Fibonacchi: We did the fibonacchi sequence, using both a loop and recursive method
+  Ordbog: We created a dictionary to keep track of words  
   RandomElev: Choose a random student from a list   
 
 - Cryptography  

@@ -12,7 +12,6 @@ class LogFrame(gui.LogFrame):
         pubb.subscribe(self.listener, "MyMainFrame")
 
     def listener(self, message):
-
         msg = self.m_staticText5.Label
         msg += datetime.datetime.now().strftime("%H:%M:%S %m/%d/%Y  | ")
         msg += message + "\n"

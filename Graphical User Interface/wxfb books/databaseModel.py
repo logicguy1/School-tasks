@@ -10,16 +10,17 @@ class SqliteParser:
         self.cursor = self.db.cursor()
         self.pubb = pubb
 
+
     def active_log(func):
         def wrapper(self, *args, **kwargs):
-            self.pubb.sendMessage("MyMainFrame", message = f"{func.__name__} - {func.__doc__}")
-            return func(self,*args, **kwargs)
+            self.pubb.sendMessage("MyMainFrame", message = f"{func.__name__} - {args} - {func.__doc__}")
+            return func(self, *args, **kwargs)
         return wrapper
 
 
     @active_log
     def close_connection(self, db, cursor):
-        """ Close the database connection """
+    """ Close the database connection """
         db.close()
 
     @active_log
@@ -32,6 +33,7 @@ class SqliteParser:
 
     @active_log
     def search_book(self, name):
+        """ Search for a book in the db """
         self.cursor.execute(f"SELECT id, titel, enavn, fnavn, forlag, aar FROM books WHERE titel LIKE '%{name}%' ORDER BY titel;")
         result = self.cursor.fetchall()
 
@@ -39,11 +41,13 @@ class SqliteParser:
 
     @active_log
     def get_book(self, itemId):
+        """ Get a book from the database """
         self.cursor.execute(f"SELECT id, titel, enavn, fnavn, forlag, aar FROM books WHERE id = ?;", (itemId,))
         return self.cursor.fetchone()
 
     @active_log
     def get_articles(self):
+        """ Get all the articales from the db """
         self.cursor.execute(f"SELECT id, titel, enavn, fnavn, tidsskrift, dato FROM artikler;")
         return self.cursor.fetchall()
 
@@ -67,6 +71,7 @@ class SqliteParser:
 
     @active_log
     def add_book(self, vals):
+        """ Add a book to the database """
         self.cursor.execute("INSERT INTO books(titel, enavn, fnavn, forlag, aar) VALUES (?,?,?,?,?)", vals)
 
 

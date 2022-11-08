@@ -43,7 +43,7 @@ class MainFrame ( wx.Frame ):
 		self.m_panel1.SetSizer( bSizer5 )
 		self.m_panel1.Layout()
 		bSizer5.Fit( self.m_panel1 )
-		self.m_notebook1.AddPage( self.m_panel1, u"Books", False )
+		self.m_notebook1.AddPage( self.m_panel1, u"Books", True )
 		self.m_panel2 = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer51 = wx.BoxSizer( wx.VERTICAL )
 
@@ -62,7 +62,7 @@ class MainFrame ( wx.Frame ):
 		self.m_panel2.SetSizer( bSizer51 )
 		self.m_panel2.Layout()
 		bSizer51.Fit( self.m_panel2 )
-		self.m_notebook1.AddPage( self.m_panel2, u"Articles", True )
+		self.m_notebook1.AddPage( self.m_panel2, u"Articles", False )
 
 		bSizer8.Add( self.m_notebook1, 0, wx.EXPAND |wx.ALL, 5 )
 
@@ -280,6 +280,39 @@ class PrintDialog ( wx.Dialog ):
 		self.SetSizer( bSizer11 )
 		self.Layout()
 		bSizer11.Fit( self )
+
+		self.Centre( wx.BOTH )
+
+	def __del__( self ):
+		pass
+
+
+###########################################################################
+## Class LogFrame
+###########################################################################
+
+class LogFrame ( wx.Frame ):
+
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+		bSizer12 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText6 = wx.StaticText( self, wx.ID_ANY, u"Log vindue", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText6.Wrap( -1 )
+
+		bSizer12.Add( self.m_staticText6, 0, wx.ALL, 5 )
+
+		self.m_staticText5 = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText5.Wrap( -1 )
+
+		bSizer12.Add( self.m_staticText5, 0, wx.ALL, 5 )
+
+
+		self.SetSizer( bSizer12 )
+		self.Layout()
 
 		self.Centre( wx.BOTH )
 

@@ -1,7 +1,23 @@
 import wx
 import gui
+import datetime
+from pubsub import pub as pubb
 
 import databaseModel as model
+
+
+class LogFrame(gui.LogFrame):
+    def __init__(self, parent):
+        gui.LogFrame.__init__(self, parent)
+        pubb.subscribe(self.listener, "MyMainFrame")
+
+    def listener(self, message):
+
+        msg = self.m_staticText5.Label
+        msg += datetime.datetime.now().strftime("%H:%M:%S %m/%d/%Y  | ")
+        msg += message + "\n"
+
+        self.m_staticText5.SetLabel(msg)
 
 
 class BookPreview(gui.BookPreview):
@@ -17,11 +33,13 @@ class mainFrame(gui.MainFrame):
     def __init__(self, parent):
         gui.MainFrame.__init__(self, parent)
         self.BookPreview = BookPreview(self)
+        self.LogFrame = LogFrame(self)
 
-        self.db = model.SqliteParser("litteratur.db")
+        self.db = model.SqliteParser("litteratur.db", pubb)
 
         # Update the table on boot
         self.btn_update_table(None)
+        self.LogFrame.Show(True)
 
     def get_row(self):
         """ Get the selected row in the active listview """

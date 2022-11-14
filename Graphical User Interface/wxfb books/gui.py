@@ -28,7 +28,7 @@ class MainFrame ( wx.Frame ):
 		self.m_panel1 = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer5 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_dataView_books = wx.dataview.DataViewListCtrl( self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,200 ), 0 )
+		self.m_dataView_books = wx.dataview.DataViewListCtrl( self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
 		self.m_dataView_books.SetMinSize( wx.Size( 1000,200 ) )
 
 		self.m_dataViewListColumn17 = self.m_dataView_books.AppendTextColumn( u"ID", wx.dataview.DATAVIEW_CELL_INERT, -1, wx.ALIGN_LEFT, wx.dataview.DATAVIEW_COL_RESIZABLE )
@@ -37,7 +37,7 @@ class MainFrame ( wx.Frame ):
 		self.m_dataViewListColumn15 = self.m_dataView_books.AppendTextColumn( wx.EmptyString, wx.dataview.DATAVIEW_CELL_INERT, -1, wx.ALIGN_LEFT, wx.dataview.DATAVIEW_COL_RESIZABLE )
 		self.m_dataViewListColumn16 = self.m_dataView_books.AppendTextColumn( u"Year", wx.dataview.DATAVIEW_CELL_INERT, -1, wx.ALIGN_LEFT, wx.dataview.DATAVIEW_COL_RESIZABLE )
 		self.m_dataViewListColumn3 = self.m_dataView_books.AppendTextColumn( u"Publisher", wx.dataview.DATAVIEW_CELL_INERT, -1, wx.ALIGN_LEFT, wx.dataview.DATAVIEW_COL_RESIZABLE )
-		bSizer5.Add( self.m_dataView_books, 0, wx.ALL, 5 )
+		bSizer5.Add( self.m_dataView_books, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		self.m_panel1.SetSizer( bSizer5 )
@@ -64,15 +64,12 @@ class MainFrame ( wx.Frame ):
 		bSizer51.Fit( self.m_panel2 )
 		self.m_notebook1.AddPage( self.m_panel2, u"Articles", False )
 
-		bSizer8.Add( self.m_notebook1, 0, wx.EXPAND |wx.ALL, 5 )
+		bSizer8.Add( self.m_notebook1, 1, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer9 = wx.BoxSizer( wx.HORIZONTAL )
 
 		self.m_button3 = wx.Button( self, wx.ID_ANY, u"Add New Record", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer9.Add( self.m_button3, 0, wx.ALL, 5 )
-
-		self.m_button5 = wx.Button( self, wx.ID_ANY, u"Print List", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer9.Add( self.m_button5, 0, wx.ALL, 5 )
 
 		self.m_button4 = wx.Button( self, wx.ID_ANY, u"Delete record", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer9.Add( self.m_button4, 0, wx.ALL, 5 )
@@ -83,6 +80,24 @@ class MainFrame ( wx.Frame ):
 
 		self.SetSizer( bSizer8 )
 		self.Layout()
+		self.m_menubar1 = wx.MenuBar( 0 )
+		self.m_menu1 = wx.Menu()
+		self.m_menuItem1 = wx.MenuItem( self.m_menu1, wx.ID_ANY, u"Open Log", wx.EmptyString, wx.ITEM_NORMAL )
+		self.m_menu1.Append( self.m_menuItem1 )
+
+		self.m_menuItem2 = wx.MenuItem( self.m_menu1, wx.ID_ANY, u"Exit", wx.EmptyString, wx.ITEM_NORMAL )
+		self.m_menu1.Append( self.m_menuItem2 )
+
+		self.m_menubar1.Append( self.m_menu1, u"File" )
+
+		self.m_menu2 = wx.Menu()
+		self.m_menuItem3 = wx.MenuItem( self.m_menu2, wx.ID_ANY, u"Print File", wx.EmptyString, wx.ITEM_NORMAL )
+		self.m_menu2.Append( self.m_menuItem3 )
+
+		self.m_menubar1.Append( self.m_menu2, u"Edit" )
+
+		self.SetMenuBar( self.m_menubar1 )
+
 
 		self.Centre( wx.BOTH )
 
@@ -90,8 +105,10 @@ class MainFrame ( wx.Frame ):
 		self.m_dataView_books.Bind( wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, self.activate, id = wx.ID_ANY )
 		self.m_dataView_articles.Bind( wx.dataview.EVT_DATAVIEW_ITEM_ACTIVATED, self.activate, id = wx.ID_ANY )
 		self.m_button3.Bind( wx.EVT_BUTTON, self.btn_add_book )
-		self.m_button5.Bind( wx.EVT_BUTTON, self.get_output )
 		self.m_button4.Bind( wx.EVT_BUTTON, self.btn_delete_record )
+		self.Bind( wx.EVT_MENU, self.open_log, id = self.m_menuItem1.GetId() )
+		self.Bind( wx.EVT_MENU, self.quit, id = self.m_menuItem2.GetId() )
+		self.Bind( wx.EVT_MENU, self.get_output, id = self.m_menuItem3.GetId() )
 
 	def __del__( self ):
 		pass
@@ -105,10 +122,16 @@ class MainFrame ( wx.Frame ):
 	def btn_add_book( self, event ):
 		event.Skip()
 
-	def get_output( self, event ):
+	def btn_delete_record( self, event ):
 		event.Skip()
 
-	def btn_delete_record( self, event ):
+	def open_log( self, event ):
+		event.Skip()
+
+	def quit( self, event ):
+		event.Skip()
+
+	def get_output( self, event ):
 		event.Skip()
 
 
@@ -236,8 +259,8 @@ class NewBookDialoge ( wx.Dialog ):
 		bSizer6.Add( bSizer10, 0, wx.EXPAND, 5 )
 
 		m_sdbSizer1 = wx.StdDialogButtonSizer()
-		self.m_sdbSizer1Save = wx.Button( self, wx.ID_SAVE )
-		m_sdbSizer1.AddButton( self.m_sdbSizer1Save )
+		self.m_sdbSizer1OK = wx.Button( self, wx.ID_OK )
+		m_sdbSizer1.AddButton( self.m_sdbSizer1OK )
 		self.m_sdbSizer1Cancel = wx.Button( self, wx.ID_CANCEL )
 		m_sdbSizer1.AddButton( self.m_sdbSizer1Cancel )
 		m_sdbSizer1.Realize();
@@ -305,10 +328,12 @@ class LogFrame ( wx.Frame ):
 
 		bSizer12.Add( self.m_staticText6, 0, wx.ALL, 5 )
 
-		self.m_staticText5 = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText5.Wrap( -1 )
+		m_listBox1Choices = []
+		self.m_listBox1 = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_listBox1Choices, 0 )
+		bSizer12.Add( self.m_listBox1, 1, wx.ALL|wx.EXPAND, 5 )
 
-		bSizer12.Add( self.m_staticText5, 0, wx.ALL, 5 )
+		self.m_button4 = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer12.Add( self.m_button4, 0, wx.ALL, 5 )
 
 
 		self.SetSizer( bSizer12 )
@@ -316,7 +341,15 @@ class LogFrame ( wx.Frame ):
 
 		self.Centre( wx.BOTH )
 
+		# Connect Events
+		self.m_button4.Bind( wx.EVT_BUTTON, self.quit )
+
 	def __del__( self ):
 		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def quit( self, event ):
+		event.Skip()
 
 

@@ -11,17 +11,22 @@ class LogFrame(gui.LogFrame):
         gui.LogFrame.__init__(self, parent)
         pubb.subscribe(self.listener, "MyMainFrame")
 
+
     def listener(self, message):
-        msg = self.m_staticText5.Label
-        msg += datetime.datetime.now().strftime("%H:%M:%S %m/%d/%Y  | ")
+        msg = datetime.datetime.now().strftime("%H:%M:%S %m/%d/%Y  | ")
         msg += message + "\n"
 
-        self.m_staticText5.SetLabel(msg)
+        self.m_listBox1.InsertItems([msg,], 0)
+
+
+    def quit(self, event):
+        self.Show(False)
 
 
 class BookPreview(gui.BookPreview):
     def __init__(self, parent):
         gui.BookPreview.__init__(self, parent)
+
 
     def btn_done(self, event):
         """ Hide the frame """
@@ -38,7 +43,7 @@ class mainFrame(gui.MainFrame):
 
         # Update the table on boot
         self.btn_update_table(None)
-        self.LogFrame.Show(True)
+
 
     def get_row(self):
         """ Get the selected row in the active listview """
@@ -56,6 +61,7 @@ class mainFrame(gui.MainFrame):
         else:
             return -1
 
+
     def btn_update_table(self, event):
         """ Update the table with new values from the database """
         self.m_dataView_books.DeleteAllItems()
@@ -70,6 +76,7 @@ class mainFrame(gui.MainFrame):
         for i in articles:
             row = (str(i[0]), i[1], i[3], i[2], i[4], i[5]) 
             self.m_dataView_articles.AppendItem(row)
+
 
     def open_record(self, itemId, selection):
         """ Open a popup with the active record to allow for editing """
@@ -101,7 +108,6 @@ class mainFrame(gui.MainFrame):
         elif selection == 1:
             # We are an article
             article = self.db.get_article(itemId)
-            print(article)
 
             dlg = gui.NewBookDialoge(self)
 
@@ -151,6 +157,7 @@ class mainFrame(gui.MainFrame):
         self.BookPreview.m_dataView_bookIndevidual.DeleteAllItems()
         self.BookPreview.m_dataView_bookIndevidual.AppendItem(bookData)
 
+
     def get_output(self, event):
         dlg = gui.PrintDialog(self)
         result = dlg.ShowModal()
@@ -169,7 +176,6 @@ class mainFrame(gui.MainFrame):
                 file.write(out)
 
 
-
     def btn_add_book(self, event):
         dlg = gui.NewBookDialoge(self)
         result = dlg.ShowModal()
@@ -183,6 +189,7 @@ class mainFrame(gui.MainFrame):
             self.db.add_book((name, author, year, pages))
             self.btn_update_table(None)
 
+
     def btn_delete_record(self, event):
         # Get selected row
         row = self.m_dataView_books.GetSelectedRow()
@@ -191,6 +198,10 @@ class mainFrame(gui.MainFrame):
             return -1
         # Book name
         book = self.m_dataView_books.GetTextValue(row, 0)
+
+    
+    def open_log(self, event):
+        self.LogFrame.Show(True)
 
 
     def quit(self, event):

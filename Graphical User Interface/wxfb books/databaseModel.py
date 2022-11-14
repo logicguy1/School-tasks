@@ -20,7 +20,7 @@ class SqliteParser:
 
     @active_log
     def close_connection(self, db, cursor):
-    """ Close the database connection """
+        """ Close the database connection """
         db.close()
 
     @active_log

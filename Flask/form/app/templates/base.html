@@ -2,13 +2,13 @@
 <html>
     <head>
       {% if title %}
-      <title>{{ title }} - Microblog</title>
+      <title>{{ title }} - Formsite</title>
       {% else %}
-      <title>Welcome to Microblog</title>
+      <title>Welcome to Formsite</title>
       {% endif %}
     </head>
     <body>
-        <div>Microblog: 
+        <div>Formsite: 
           <a href="/index">Home</a>
           {% if current_user.is_anonymous %}
           <a href="{{ url_for('login') }}">Login</a>

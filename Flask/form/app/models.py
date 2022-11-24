@@ -8,8 +8,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    # awnsers = db.relationship('Awnser', backref='authored', lazy='dynamic')
-    posts = db.relationship('Awnser', backref='author', lazy='dynamic')
+    awnsers = db.relationship('Awnser', backref='author', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -25,6 +24,8 @@ class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
     type = db.Column(db.String(50))
+    awnsers = db.relationship('Awnser', backref='question', lazy='dynamic')
+    choices = db.relationship('Choice', backref='question', lazy='dynamic')
 
     def __repr__(self):
         return f'<Question {self.body}>'
@@ -32,11 +33,11 @@ class Question(db.Model):
 
 class Choice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question_id = db.Column(db.Integer)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
     body = db.Column(db.String(140))
 
     def __repr__(self):
-        return f'<Choices {self.body}>'
+        return f'<Choice {self.body}>'
 
 
 class Awnser(db.Model):
@@ -44,10 +45,11 @@ class Awnser(db.Model):
     body = db.Column(db.String(140))
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    # choice_id = db.Column(db.Integer, db.ForeignKey('Choice.id'))
 
     def __repr__(self):
-        return f'<Awnser {self.body}>'
+        q = Question.query.filter_by(id=self.question_id).first().body
+        a = self.body 
+        return f'<Awnser {q}: {a}>'
 
 
 @login.user_loader

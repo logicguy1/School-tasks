@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        {% for q in questions %}
+          <p>
+            {{ q.label }}
+            <br>
+            {{ q() }}
+          </p>
+        {% endfor %}
+
+        <p>{{ form.submit() }}</p>
+    </form>
 {% endblock %}

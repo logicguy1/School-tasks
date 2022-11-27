@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    admin = db.Column(db.Integer, default=lambda: 0)
     awnsers = db.relationship('Awnser', backref='author', lazy='dynamic')
 
     def set_password(self, password):
@@ -29,6 +30,25 @@ class Question(db.Model):
 
     def __repr__(self):
         return f'<Question {self.body}>'
+
+    @staticmethod
+    def count_awnsers():
+        questions = {}
+        for q in Question.query.all():
+            awnsers = {}
+            for c in q.choices.all():
+                awnsers[c.body] = 0
+            for a in q.awnsers.all():
+                if a.body not in awnsers:
+                    awnsers[a.body] = 0
+                awnsers[a.body] += 1
+
+            for k, v in awnsers.items():
+                awnsers[k] = round(v/q.awnsers.count(), 2)
+
+            questions[q] = awnsers
+
+        return questions
 
 
 class Choice(db.Model):

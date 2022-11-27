@@ -27,6 +27,23 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different username.')
 
 
+class AdminAddForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    type = SelectField("Type", choices=["StringField", "SelectField"])
+    submit = SubmitField('Tilføj')
+
+
+class AdminEditSelectForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+
+    feild1 = StringField("Feild 1", validators=[])
+    feild2 = StringField("Feild 2", validators=[])
+    feild3 = StringField("Feild 3", validators=[])
+    feild4 = StringField("Feild 4", validators=[])
+
+    submit = SubmitField('Gem')
+
+
 def DynamicQuestionForm(*args, **kwargs):
     class StaticFrom(FlaskForm):
         submit = SubmitField("Indsend")

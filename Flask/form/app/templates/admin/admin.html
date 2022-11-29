@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 style="margin-bottom:0;">Question Manager</h1>
+  <p>
+    {% for q, awns in awnsers.items() %}
+      <!-- Question title -->
+      <div style="display:flex;gap:10px;">
+        <h3 style="margin-bottom:10px;">{{ q.body }}</h3>
+        <span style="line-height:60px;">({{ q.awnsers.count() }} awnsers) <a href="{{ url_for('admin.modify', question=q.id) }}"><i>modify</i></a></span>
+      </div>
+
+      {% for sub, proc in awns.items() %}
+        <span>{{ sub }} - {{ round(proc*100) }}%</span>
+        <!-- Procent bar to show stuffs ykyk-->
+        <div style="width:200px;background-color:lightgray;margin-bottom:5px;">
+          <div style="width:{{ proc*200 }}px;background-color:red;height:5px;"></div>
+        </div>
+      {% endfor %}
+      
+    {% endfor %}
+  </p>
+  <a href="{{ url_for('admin.add_question') }}">Add new question</a>
+{% endblock %}

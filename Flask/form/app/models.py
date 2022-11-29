@@ -44,7 +44,10 @@ class Question(db.Model):
                 awnsers[a.body] += 1
 
             for k, v in awnsers.items():
-                awnsers[k] = round(v/q.awnsers.count(), 2)
+                if (count := q.awnsers.count()) != 0:
+                    awnsers[k] = round(v/count, 2)
+                else:
+                    awnsers[k] = 0
 
             questions[q] = awnsers
 

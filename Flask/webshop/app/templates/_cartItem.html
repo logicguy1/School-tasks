@@ -1,0 +1,20 @@
+<div class="checkout-item">
+  <div>
+    <img src="/static/img/missing.png">
+  </div>
+  <div>
+    <div class="name-header">
+      <h3>{{ item.name }}</h3>
+      <span>{{ item.price }} kr.</span>
+    </div>
+    <div style="height: 5px"></div>
+    <span class="gray">{{ item.body }}</span>
+    <div style="height: 3px"></div>
+    <p class="gray">Quantity  {{ q(class="quant-inp") }}</p>
+    <div class="bottom">
+      <a href="{{ url_for('main.favorite', item=item.id) }}">Move to favorites</a>
+      <a href="{{ url_for('main.remove', item=item.id) }}">Remove</a>
+    </div>
+  </div>
+</div>
+<hr>

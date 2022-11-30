@@ -12,12 +12,10 @@ class AdminAddForm(FlaskForm):
 
 class AdminEditSelectForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired(), Length(min=0, max=50)])
-
     feild1 = StringField("Feild 1", validators=[Length(max=50)])
     feild2 = StringField("Feild 2", validators=[Length(max=50)])
     feild3 = StringField("Feild 3", validators=[Length(max=50)])
     feild4 = StringField("Feild 4", validators=[Length(max=50)])
-
     submit = SubmitField("Gem")
 
 

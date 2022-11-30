@@ -1,22 +1,32 @@
 <!doctype html>
 <html>
     <head>
+      <link rel="stylesheet" href="/static/css/base.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
       {% if title %}
-      <title>{{ title }} - Microblog</title>
+      <title>{{ title }} - The Webshop!</title>
       {% else %}
-      <title>Welcome to Microblog</title>
+      <title>Welcome to The Webshop!</title>
       {% endif %}
     </head>
     <body>
-        <div>Microblog: 
-          <a href="/index">Home</a>
-          {% if current_user.is_anonymous %}
-          <a href="{{ url_for('login') }}">Login</a>
-          {% else %}
-          <a href="{{ url_for('logout') }}">Logout</a>
-          {% endif %}
+        <div id="nav-bar">
+          <div id="nav-item1">
+            <span>Webshop</span>
+          </div>
+          <div id="nav-item2">
+            <a href="/index">Home</a>
+            {% if current_user.is_anonymous %}
+              <a href="{{ url_for('auth.login') }}">Login</a>
+            {% else %}
+              <a href="{{ url_for('main.cart') }}">Cart</a>
+              <a href="{{ url_for('auth.logout') }}">Logout</a>
+            {% endif %}
+          </div>
         </div>
-        <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul>
@@ -26,6 +36,8 @@
         </ul>
         {% endif %}
         {% endwith %}
-        {% block content %}{% endblock %}
+        <div id="main">
+          {% block content %}{% endblock %}
+        </div>
     </body>
 </html>

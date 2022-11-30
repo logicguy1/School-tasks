@@ -10,6 +10,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     admin = db.Column(db.Integer, default=lambda: 0)
     cart = db.relationship('CartItem', backref='user', lazy='dynamic')
+    cupons = db.relationship('UserCupon', backref='user', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -45,6 +46,26 @@ class CartItem(db.Model):
 
     def __repr__(self):
         return f"<CartItem {self.id}>"
+
+class Cupon(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    procent = db.Column(db.Integer)
+    name = db.Column(db.String(100))
+    max_uses = db.Column(db.Integer)
+    cupons = db.relationship('UserCupon', backref='cupon', lazy='dynamic')
+
+    def __repr__(self):
+        return f"<Cupon {self.name}>"
+
+class UserCupon(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cupon_id = db.Column(db.Integer, db.ForeignKey('cupon.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    status = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f"<UserCupon {self.cupon_id}.{self.status}>"
+
 
 
 @login.user_loader

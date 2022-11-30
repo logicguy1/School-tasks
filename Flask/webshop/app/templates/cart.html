@@ -2,10 +2,10 @@
 
 {% block content %}
   <link rel="stylesheet" href="/static/css/cart.css">
-  <form action="" method="post" novalidate>
+  <form id="submit-cart" action="" method="post" novalidate>
     {{ form.hidden_tag() }}
-    <div class="space-between">
-      <div>
+    <div class="space-between" style="gap: 100px;">
+      <div style="width: 100%;">
         <h2>CART</h2>
         <table>
           <tbody>
@@ -22,26 +22,42 @@
           <h2>SUMMARY</h2>
           <div class="gray">
             <div class="space-between">
-              <p>Subtotal</p><span>{{ total }} DKK</span>
+              <p>Subtotal</p><span id="tot">{{ total }} DKK</span>
             </div>
-            <div style="height: 15px"></div>
+            <div style="height: 20px"></div>
             <div class="space-between">
-              <p>Estimated Delivery Charge</p><span>{{delivery}} DKK</span>
+              <p>Estimated Delivery Charge</p><span id="del">{{delivery}} DKK</span>
             </div>
-            <div style="height: 15px"></div>
+            {% if cupon %}
+              <div style="height: 20px"></div>
+              <div class="space-between">
+                <p>Active cupon code (<span id="proc">{{ cupon.cupon.procent }}</span>%)</p><span id="cpn">- {{ cpn_amt }} DKK</span>
+              </div>
+            {% endif %}
+            <div style="height: 20px"></div>
             <div class="space-between">
-              <p>Taxes (26%)</p><span>{{ taxes }} DKK</span>
+              <p>Taxes (26%)</p><span id="tax">{{ taxes }} DKK</span>
             </div>
           </div>
-          <div style="height: 30px"></div>
-          <div class="space-between">
-            <p>TOTAL</p><span>{{ total+taxes+delivery }} DKK</span>
+
+          <div class="space-between total-row">
+            <p>TOTAL</p><span id="all">{{ tot }} DKK</span>
           </div>
           <div style="height: 30px"></div>
           {{ form.submit(id="submit-button") }}
           
         </div>
+        <div id="cupon">
+          <h2>Got a cupon?</h2>
+          <form action="" method="post" novalidate>
+            {{ cupon_form.code() }}
+            {{ cupon_form.submit(id="submit-button2") }}
+          </form>
+          
+          
+        </div>
       </div>
     </div>
   </form>
+  <script src="/static/js/cart.js"></script>
 {% endblock %}

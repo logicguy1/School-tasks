@@ -9,7 +9,7 @@ h2 {
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
-  width: 550px;
+  width: 100%;
   height: 1px;
   background-color: #ddd;
   border: none;
@@ -18,12 +18,12 @@ hr {
 .name-header {
   display: flex; 
   justify-content: space-between;
-  width: 450px;
+  width: 100%;
 }
 
 .checkout-item {
   height: 120px;
-  max-width: 550px;
+  width: 100%;
   display: flex;
 }
 
@@ -35,6 +35,7 @@ hr {
 .checkout-item div:nth-child(2) {
   position: relative;
   margin-left: 10px;
+  width: 100%;
 }
 
 .bottom {
@@ -66,7 +67,7 @@ hr {
 #summary {
   background-color: #101010;
   width: 315px;
-  height: 415px;
+  height: 315px;
   position: relative;
   padding: 20px;
 }
@@ -77,12 +78,23 @@ hr {
 }
 
 #summary #submit-button {
-  width: 100%;
+  width: calc(100% - 40px);
   height: 50px;
   background-color: #159d15;
   color: #fff;
   font-size: 20px;
   border: none;
   cursor: pointer;
+  position: absolute;
+  bottom: 20px;
 }
 
+.total-row {
+  position: absolute;
+  bottom: 90px;
+  width: calc(100% - 40px);
+}
+
+#cupon {
+  padding-top: 30px;
+}

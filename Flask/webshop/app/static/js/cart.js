@@ -16,8 +16,8 @@ for (let i = 0; i < inputs.length; i++) {
     var data = {};
     var total = 0;
     for (let i = 0; i < items.length; i++){
-      var price = parseInt(items[i].innerHTML.split(" ")[0]);
-      var amount = parseInt(inputs[i].value);
+      var price = parseFloat(items[i].innerHTML.split(" ")[0]);
+      var amount = parseFloat(inputs[i].value);
       if (isNaN(amount)){
         amount = 0;
       }
@@ -26,20 +26,20 @@ for (let i = 0; i < inputs.length; i++) {
       data[hiddens[i].value] = amount;
     }
     
-    var delivery = parseInt(document.getElementById("del").innerHTML.split(" ")[0]);
+    var delivery = parseFloat(document.getElementById("del").innerHTML.split(" ")[0]);
     console.log(delivery)
 
     var proc = document.getElementById("proc")
     if (cpn == undefined){
-      cpn = 100
+      var cpn = 100
     } else {
-      cpn = parseInt(proc.innerHTML)
+      var cpn = parseFloat(proc.innerHTML)
       console.log(cpn)
       document.getElementById("cpn").innerHTML = `- ${Math.round((total + delivery) * (cpn / 100)*100)/100} DKK`
     }
 
-    all = (total + delivery) * (cpn / 100)
-    tax = all*0.26
+    var all = (total + delivery) * (cpn / 100)
+    var tax = all*0.26
     console.log("all price", all, "tax", tax)
 
     document.getElementById("tot").innerHTML = `${Math.round(total*100)/100} DKK`;

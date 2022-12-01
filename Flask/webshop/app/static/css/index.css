@@ -1,0 +1,83 @@
+#list {
+  display: flex;
+  flex-wrap: wrap;
+  /*justify-content: space-between;*/
+  gap: 100px;
+}
+
+.list-item {
+  width: 250px;
+  padding: 30px;
+
+  background-color: #101010;
+  filter: drop-shadow(10px 10px 0 #159d15);
+  color: #fff;
+
+  animation: glitch 1s linear infinite;
+  animation-play-state: paused;
+}
+
+
+.amt {
+  width: 50px;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 2px;
+  padding-left: 5px;
+}
+
+.submit {
+
+}
+
+img {
+  height: 120px;
+  width: auto;
+  padding-bottom: 20px;
+}
+
+h2 {
+  padding-bottom: 20px;
+}
+
+.list-item:hover {
+  animation-play-state: running;
+}
+
+/* cool animation idk */
+@keyframes glitch {
+  0% {filter: drop-shadow(10px 10px 0 #159d15);}
+
+  14.999% {filter: drop-shadow(10px 10px 0 #159d15);}
+  15% {filter: drop-shadow(4px 12px 0 #159d15);}
+
+  40.999% {filter: drop-shadow(7px 9px 0 #159d15);}
+  41% {filter: drop-shadow(4px 10px 0 #159d15);}
+
+  83.999% {filter: drop-shadow(4px 7px 0 #159d15);}
+  84% {filter: drop-shadow(7px 4px 0 #159d15);}
+  99.999% {filter: drop-shadow(4px 10px 0 #159d15);}
+
+  /*
+  43% {filter: drop-shadow(4px 10px 0 #159d15);}
+  44% {filter: drop-shadow(2px 3px 0 #159d15);}
+
+  21% {filter: drop-shadow(2px 3px 0 #159d15);}
+  22% {filter: drop-shadow(5px 8px 0 #159d15);}
+
+  48% {filter: drop-shadow(5px 8px 0 #159d15);}
+  49% {filter: drop-shadow(8px 5px 0 #159d15);}
+
+  58% {filter: drop-shadow(8px 5px 0 #159d15);}
+  59% {filter: drop-shadow(3px 2px 0 #159d15);}
+
+  78% {filter: drop-shadow(3px 2px 0 #159d15);}
+  59% {filter: drop-shadow(10px 10px 0 #159d15);}
+
+  52% {filter: drop-shadow(10px 10px 0 #159d15);}
+  53% {filter: drop-shadow(4px 4px 0 #159d15);}
+
+  90% {filter: drop-shadow(4px 4px 0 #159d15);}
+  91% {filter: drop-shadow(7px 7px 0 #159d15);}
+  */
+}

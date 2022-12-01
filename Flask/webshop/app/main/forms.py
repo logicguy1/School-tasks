@@ -10,7 +10,7 @@ class UpdateItemForm(FlaskForm):
 
 
 class BuyItemForm(FlaskForm):
-    amount = StringField("Amount")
+    amount = IntegerField("Amount", validators=[NumberRange(min=0, max=100)], default="1")
     submit = SubmitField("Add to basket")
 
 

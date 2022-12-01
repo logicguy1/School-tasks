@@ -1,10 +1,16 @@
-<div>
-  <h2>{{ item.name }}</h2>
-  <span>{{ item.body }} - {{ item.price }}kr</span>
-  <form action="{{ url_for('main.index', item=item.id) }}" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    {{ form.amount.label }}
-    {{ form.amount() }}
-    {{ form.submit() }}
-  </form>
+<div class="list-item">
+  <center>
+    <h2>{{ item.name }}</h2>
+
+    <img src="/static/img/missing.png">
+    <br>
+    <span>{{ item.body }} - {{ item.price }}kr</span>
+    <form action="{{ url_for('main.index', item=item.id) }}" method="post" novalidate>
+      {{ form.hidden_tag() }}
+      {{ form.amount.label }}
+      {{ form.amount(class="amt") }}
+      <br>
+      {{ form.submit(class="submit") }}
+    </form>
+  </center>
 </div>

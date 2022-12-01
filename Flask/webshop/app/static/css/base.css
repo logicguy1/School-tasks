@@ -39,6 +39,58 @@ a, u {
   cursor: pointer;
 }
 
+/* Popup notification */
+#notification {
+  position: absolute;
+
+  bottom: 20px;
+  right: 20px;
+
+  background-color: #fff;
+
+  border: 1px solid;
+  border-color: #b9baba;
+  border-radius: 6px;
+}
+
+#notification-wrapper {
+  position: relative;
+  padding: 30px;
+
+  width: 300px;
+}
+
+#notification h4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: calc(100% - 30px);
+  height: 20px;
+
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #090;
+
+  background-color: #9f9;
+
+  border-radius: 6px 6px 0 0;
+}
+
+#notification img {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+
+#notification p {
+  padding-top: 58px;
+}
+
+
 /* Standard classes*/
 .space-between {
   display: flex;

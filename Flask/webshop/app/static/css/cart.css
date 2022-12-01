@@ -98,3 +98,28 @@ hr {
 #cupon {
   padding-top: 30px;
 }
+
+#cupon-code {
+  width: calc(100% - 85px);
+  padding: 6px;
+  padding-left: 6px;
+  border-radius: 3px;
+  border: 1px solid;
+  border-color: #b9baba;
+}
+
+#submit-button2 {
+  width: 65px;
+  padding: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 3px;
+  border: 1px solid;
+  border-color: #b9baba;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+#submit-button2:hover {
+  background-color: #eee;
+}

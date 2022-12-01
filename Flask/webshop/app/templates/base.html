@@ -29,15 +29,19 @@
         </div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
+        <div id="notification">
+          <div id="notification-wrapper">
+            <h4>Notification <img src="/static/img/x.png" alt="x" onClick="hide_popup();"></h4>
+              {% for message in messages %}
+              <p>{{ message }}</p>
             {% endfor %}
-        </ul>
+          </div>
+        </div>
         {% endif %}
         {% endwith %}
         <div id="main">
           {% block content %}{% endblock %}
         </div>
+        <script src="/static/js/base.js"></script>
     </body>
 </html>

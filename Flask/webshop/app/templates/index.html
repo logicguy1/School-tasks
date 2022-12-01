@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <link rel="stylesheet" href="/static/css/index.css">
   Hello world!
-  {% for item in items %}
-    {% include '_item.html' %} 
-  {% endfor %}
+  <div id="list">
+    {% for item in items %}
+      {% include '_item.html' %} 
+    {% endfor %}
+  </div>
 {% endblock %}

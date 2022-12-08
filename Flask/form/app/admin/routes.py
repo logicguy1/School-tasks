@@ -11,8 +11,8 @@ from app.models import User, Awnser, Question, Choice
 @bp.route('/dashbord')
 @login_required
 def admin():
-    if current_user.is_admin():
-        return redirect(url_for("index"))
+    if not current_user.is_admin():
+        return redirect(url_for("main.index"))
 
     return render_template('admin/admin.html', title="Admin", awnsers=Question.count_awnsers(), round=round) 
 
@@ -20,8 +20,8 @@ def admin():
 @bp.route('/add', methods=["GET", "POST"])
 @login_required
 def add_question():
-    if current_user.is_admin():
-        return redirect(url_for("index"))
+    if not current_user.is_admin():
+        return redirect(url_for("main.index"))
 
     form = AdminAddForm()
 
@@ -37,8 +37,8 @@ def add_question():
 @bp.route('/modify', methods=["GET", "POST"])
 @login_required
 def modify():
-    if current_user.is_admin():
-        return redirect(url_for("index"))
+    if not current_user.is_admin():
+        return redirect(url_for("main.index"))
 
     args = request.args
     q = Question.query.filter_by(id=args["question"]).first_or_404()

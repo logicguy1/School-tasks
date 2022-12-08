@@ -26,7 +26,7 @@ class User(UserMixin, db.Model):
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
+    body = db.Column(db.String(256))
     type = db.Column(db.String(50))
     awnsers = db.relationship('Awnser', backref='question', lazy='dynamic')
     choices = db.relationship('Choice', backref='question', lazy='dynamic')
@@ -60,7 +60,7 @@ class Question(db.Model):
 class Choice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
-    body = db.Column(db.String(140))
+    body = db.Column(db.String(256))
 
     def __repr__(self):
         return f'<Choice {self.body}>'

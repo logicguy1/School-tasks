@@ -1,17 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <link rel="stylesheet" href="/static/css/index.css">
+  <div id="main">
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
 
         {% for q in questions %}
-          <p>
-            {{ q.label }}
-            <br>
-            {{ q(maxlength="50") }}
-          </p>
+          <div class="card">
+            <div class="header">
+              {{ q.label }}
+            </div>
+            <p>
+              <br>
+              {{ q(maxlength="50", placeholder="Your Answer") }}
+            </p>
+            
+          </div>
         {% endfor %}
 
         <p>{{ form.submit() }}</p>
     </form>
+  </div>
 {% endblock %}

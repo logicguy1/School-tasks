@@ -17,7 +17,7 @@ def index():
         return redirect(url_for('main.completed')) 
 
     form = DynamicQuestionForm()()
-    questions = [getattr(form, i) for i in dir(form) if i.startswith('feild_')]
+    questions = [getattr(form, i) for i in sorted(dir(form), key=lambda x: x.split("_")[-1]) if i.startswith('feild_')]
 
     if form.validate_on_submit():
         for i in questions:

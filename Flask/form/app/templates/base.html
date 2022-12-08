@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
     <head>
+      <link rel="stylesheet" href="/static/css/base.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
       {% if title %}
       <title>{{ title }} - Formsite</title>
       {% else %}
@@ -8,26 +12,31 @@
       {% endif %}
     </head>
     <body>
-        <div>Formsite: 
-          <a href="/index">Home</a>
-          {% if current_user.is_anonymous %}
-            <a href="{{ url_for('auth.login') }}">Login</a>
-          {% else %}
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-            {% if current_user.is_admin() %}
-              <a href="{{ url_for('admin.admin') }}">Admin</a>
+        <div id="navbar">
+          <span>Formsite</span> 
+          <div id="wrapper">
+            <a href="/index">Home</a>
+            {% if current_user.is_anonymous %}
+              <a href="{{ url_for('auth.login') }}">Login</a>
+            {% else %}
+              <a href="{{ url_for('auth.logout') }}">Logout</a>
+              {% if current_user.is_admin() %}
+                <a href="{{ url_for('admin.admin') }}">Admin</a>
+              {% endif %}
             {% endif %}
-          {% endif %}
+          </div>
         </div>
-        <hr>
+
         {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+          {% if messages %}
+            <div id="notifcation">
+              <h3>Error!</h3>
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+              <img src="/static/img/x_icon.svg" alt="close">
+            </div>
+          {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
     </body>

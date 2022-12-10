@@ -75,7 +75,7 @@ class Awnser(db.Model):
     def __repr__(self):
         q = Question.query.filter_by(id=self.question_id).first().body
         a = self.body 
-        return f'<Awnser {q}: {a}>'
+        return f'<Awnser {a}>'
 
 
 @login.user_loader

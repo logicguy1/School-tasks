@@ -1,6 +1,8 @@
-from flask import render_template, redirect, flash, url_for, request
+from flask import render_template, redirect, flash, url_for, request, jsonify, make_response
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+import io
+import csv
 
 from app import db
 from app.admin import bp
@@ -32,6 +34,20 @@ def add_question():
         return redirect(url_for("admin.admin"))
 
     return render_template('admin/add_question.html', title="Admin", form=form) 
+
+
+@bp.route('/remove')
+@login_required
+def remove():
+    if not current_user.is_admin():
+        return redirect(url_for("main.index"))
+
+    args = request.args
+    q = Question.query.filter_by(id=args.get("question")).delete()
+
+    db.session.commit()
+
+    return redirect(url_for("admin.admin"))
 
 
 @bp.route('/modify', methods=["GET", "POST"])
@@ -87,3 +103,27 @@ def modify():
 
 
     return redirect(url_for("admin.admin"))
+
+
+@bp.route('/download')
+def download():
+    if not current_user.is_admin():
+        return redirect(url_for("main.index"))
+
+    args = request.args
+    q = Question.query.filter_by(id=args.get("question")).first_or_404()
+    a = q.awnsers.all()
+    u = [( 
+            User.query.filter_by(id=i.user_id).first().email, 
+            i.body 
+        ) for i in a]
+
+    output = io.StringIO()
+    writer = csv.writer(output, quoting=csv.QUOTE_NONNUMERIC)
+    [writer.writerow(csvrow) for csvrow in u]
+
+    out = output.getvalue()
+    print(out)
+    response = make_response(out, 200)
+    response.mimetype = "text/plain"
+    return response

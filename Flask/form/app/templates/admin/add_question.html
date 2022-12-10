@@ -1,23 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Add question</h1>
-  <form action="" method="post" novalidate>
-      {{ form.hidden_tag() }}
-      <p>
-          {{ form.title.label }}<br>
-          {{ form.title(size=32) }}
-          {% for error in form.title.errors %}
-          <br><span style="color: red;">[{{ error }}]</span>
-          {% endfor %}
-      </p>
-      <p>
-          {{ form.type.label }}<br>
-          {{ form.type() }}
-          {% for error in form.type.errors %}
-          <br><span style="color: red;">[{{ error }}]</span>
-          {% endfor %}
-      </p>
-      <p>{{ form.submit() }}</p>
-  </form>
+  <link rel="stylesheet" href="/static/css/index.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <div id="main">
+    <h1 style="margin-bottom:20px;">Add new question</h1>
+    <form action="" method="post" novalidate>
+      <div class="card">
+        <div class="header"></div>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}
+            {% for error in form.title.errors %}
+            <br><span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.type.label }}<br>
+            {{ form.type() }}
+            {% for error in form.type.errors %}
+            <br><span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+          </div>
+        <p>{{ form.submit() }}</p>
+      </div>
+    </form>
+  </div>
 {% endblock %}

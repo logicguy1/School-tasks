@@ -18,7 +18,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         
         if user is None or not user.check_password(form.password.data):
-            flash("Forkert email eller adgangskode.")
+            flash("Incorrect email or password.")
             return redirect(url_for('auth.login'))
 
         login_user(user, remember=form.remember_me.data)
@@ -43,7 +43,7 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        flash('Congratulations, you are now a registered user!')
+        flash('infoCongratulations, you are now a registered user!')
         return redirect(url_for('auth.login'))
 
     return render_template('auth/register.html', title='Register', form=form)

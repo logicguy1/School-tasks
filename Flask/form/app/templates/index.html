@@ -8,10 +8,9 @@
 
         {% for q in questions %}
           <div class="card">
-            <div class="header">
-              {{ q.label }}
-            </div>
+            <div class="header"></div>
             <p>
+              <h3>{{ q.label }}</h3>
               <br>
               {{ q(maxlength="50", placeholder="Your Answer") }}
             </p>

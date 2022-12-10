@@ -19,25 +19,33 @@
             {% if current_user.is_anonymous %}
               <a href="{{ url_for('auth.login') }}">Login</a>
             {% else %}
-              <a href="{{ url_for('auth.logout') }}">Logout</a>
               {% if current_user.is_admin() %}
                 <a href="{{ url_for('admin.admin') }}">Admin</a>
               {% endif %}
+              <a href="{{ url_for('auth.logout') }}">Logout</a>
             {% endif %}
           </div>
         </div>
 
         {% with messages = get_flashed_messages() %}
           {% if messages %}
-            <div id="notifcation">
-              <h3>Error!</h3>
-              {% for message in messages %}
-                <p>{{ message }}</p>
-              {% endfor %}
-              <img src="/static/img/x_icon.svg" alt="close">
+            <div class="notifcation {{ 'info' if messages[0].startswith('info') else 'error' }}">
+              {% if messages[0].startswith('info') %}
+                <h3>Information</h3>
+                {% for message in messages %}
+                  <p>{{ message[4:] }}</p>
+                {% endfor %}
+              {% else %}
+                <h3>Error!</h3>
+                {% for message in messages %}
+                  <p>{{ message }}</p>
+                {% endfor %}
+              {% endif%}
+              <img id="close-err" src="/static/img/x_icon.svg" alt="close">
             </div>
           {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
+      <script src="/static/js/base.js"></script>
     </body>
 </html>

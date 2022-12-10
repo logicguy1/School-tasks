@@ -1,0 +1,48 @@
+<div id="block"></div>
+
+<div id="popup">
+  <h2>Edit question</h2>
+  <img id="close-popup" src="/static/img/x_icon.svg" alt="close">
+  <form action="" method="post" novalidate>
+      {{ form.hidden_tag() }}
+      <p>
+          {{ form.title.label }}<br>
+          {{ form.title(size=32) }}
+          {% for error in form.title.errors %}
+          <br><span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      {% if q.type == "SelectField" %}
+        <p>
+            {{ form.feild1.label }}<br>
+            {{ form.feild1() }}
+            {% for error in form.feild1.errors %}
+            <br><span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.feild2.label }}<br>
+            {{ form.feild2() }}
+            {% for error in form.feild2.errors %}
+            <br><span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.feild3.label }}<br>
+            {{ form.feild3() }}
+            {% for error in form.feild3.errors %}
+            <br><span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.feild4.label }}<br>
+            {{ form.feild4() }}
+            {% for error in form.feild4.errors %}
+            <br><span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+      {% endif %}
+      <p>{{ form.submit() }}</p>
+  </form>
+
+</div>

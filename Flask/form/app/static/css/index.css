@@ -1,6 +1,7 @@
 #main {
   width: clamp(150px, 50%, 700px);
   position: absolute;
+  padding-bottom: 90px;
 
   left: 50%;
   top: 70px;
@@ -34,7 +35,7 @@ select {
 
 /* Card style */
 #main .card {
-  width: 100%;
+  width: calc(100% - 65px);
   position: relative;
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -42,20 +43,46 @@ select {
 
   margin-bottom: 30px;
   padding: 30px;
-  padding-top: 80px;
+  padding-left: 35px;
+
+  color: #252525;
 }
 
 #main .card .header {
   color: #fff;
+  font-weight: bold;
 
   background-color: #9920ff;
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px 0 0 10px;
 
   position: absolute;
   left: 0;
   top: 0;
 
-  width: calc(100% - 60px);
-  padding: 30px;
+  width: 5px;
+  height: 100%;
+}
+
+/* Submit button */
+#submit {
+  width: 200px;
+  height: 50px;
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+
+  /*background-image: url('/static/img/arrow_right_icon.svg');
+  background-position: 165px 15px;
+  background-repeat: no-repeat;
+  background-size: 20px;*/
+}
+
+#submit:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 

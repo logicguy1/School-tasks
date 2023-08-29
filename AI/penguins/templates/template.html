@@ -7,15 +7,15 @@
     <link href="/static/style.css" rel="stylesheet">
   </head>
   <body>
+    <h1 id="placeholder">Ingen pengu</h1>
     <p>Culmen Length (mm)</p>
-    <input type="text" name="Culmen Length" value="0">
+    <input type="text" name="Culmen Length" value="0" onkeyup="get_pengu();">
     <p>Culmen Depth (mm)</p>
-    <input type="text" name="Culmen Depth" value="0">
+    <input type="text" name="Culmen Depth" value="0" onkeyup="get_pengu();">
     <p>Flipper Length (mm)</p>
-    <input type="text" name="Flipper Length" value="0">
+    <input type="text" name="Flipper Length" value="0" onkeyup="get_pengu();">
     <p>Body Mass (g)</p>
-    <input type="text" name="Body Mass" value="0">
-      <br>
+    <input type="text" name="Body Mass" value="0" onkeyup="get_pengu();">
       <br>
     <button type="button" onclick="get_pengu();">Indsend</button>
 
@@ -41,7 +41,7 @@
         ).then((res) => {
             return res.json()
         }).then((data) => {
-          alert(data.value);
+          document.getElementById("placeholder").innerText = data.value;
         })
       }
     </script>

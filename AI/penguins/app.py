@@ -15,10 +15,14 @@ with open('model.pkl', 'rb') as f:
 
 @app.route('/')
 def hello_world():
+    print(request.remote_addr)
     return render_template("template.html")
 
 @app.route("/submit", methods=["POST"])
 def submit():
+    if request.remote_addr == "10.128.130.251":
+        return jsonify({"status": "error", "value": "Blocked IP"})
+
     data = np.array([request.json["data"]])
     print(data)
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/static/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <p>Culmen Length (mm)</p>
+    <input type="text" name="Culmen Length" value="0">
+    <p>Culmen Depth (mm)</p>
+    <input type="text" name="Culmen Depth" value="0">
+    <p>Flipper Length (mm)</p>
+    <input type="text" name="Flipper Length" value="0">
+    <p>Body Mass (g)</p>
+    <input type="text" name="Body Mass" value="0">
+      <br>
+      <br>
+    <button type="button" onclick="get_pengu();">Indsend</button>
+
+    <script>
+      const get_pengu = () => {
+        var data = {"data": [
+          parseFloat(document.getElementsByName("Culmen Length")[0].value),
+          parseFloat(document.getElementsByName("Culmen Depth")[0].value),
+          parseFloat(document.getElementsByName("Flipper Length")[0].value),
+          parseFloat(document.getElementsByName("Body Mass")[0].value),
+        ]};
+        console.log(data);
+
+        fetch(
+          "/submit",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        ).then((res) => {
+            return res.json()
+        }).then((data) => {
+          alert(data.value);
+        })
+      }
+    </script>
+  </body>
+</html>

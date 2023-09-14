@@ -28,11 +28,11 @@ def index():
         print(arr)
         prediction = model.predict(np.array(arr).reshape(1, -1))[0]
 
-        #return redirect(url_for('index', pred=prediction))
-
     try:
-        prediction = ["Safe to eat", "Poisnus"][round(float(request.args["pred"]))]
+        prediction = ["Safe to eat", "Poisnus"][round(float(prediction))]
     except KeyError:
+        prediction = None
+    except UnboundLocalError:
         prediction = None
 
     return render_template("template.html", prediction=prediction)
